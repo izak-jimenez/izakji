@@ -1,7 +1,18 @@
-import '../styles/globals.css'
+import '@fontsource/nunito/400.css'
+import '@fontsource/nunito/600.css'
+import '@fontsource/nunito/700.css'
 import type { AppProps } from 'next/app'
+import { ChakraProvider } from '@chakra-ui/react'
+import MainLayout from '../components/layouts/mainLayout'
+import theme from '../lib/config/theme'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function Homepage({ Component, pageProps }: AppProps) {
+  return (
+    <ChakraProvider theme={theme}>
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
+    </ChakraProvider>
+  )
 }
-export default MyApp
+export default Homepage
