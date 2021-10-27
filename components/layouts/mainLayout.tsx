@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
-import { Box, Container } from '@chakra-ui/react'
+import { Box, Container, SimpleGrid } from '@chakra-ui/react'
+import { AppBar } from '../../components/nav'
+import { NavContextProvider } from '../context/navContext'
 
 interface Props {
   children: React.ReactNode
@@ -16,7 +18,16 @@ const MainLayout = ({ children }: Props) => {
         ></meta>
         <title>Isaac Jimenez - Homepage</title>
       </Head>
-      <Container>{children}</Container>
+      <Container>
+        <NavContextProvider>
+          <SimpleGrid columns={[1, 1, 1]} spacing={4}>
+            <Box>
+              <AppBar />
+            </Box>
+            <Box>{children}</Box>
+          </SimpleGrid>
+        </NavContextProvider>
+      </Container>
     </Box>
   )
 }

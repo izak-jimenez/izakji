@@ -6,17 +6,16 @@ import {
   SimpleGrid,
   Icon
 } from '@chakra-ui/react'
-import { CardType } from '../lib/types'
+import { IMiniCard } from '../lib/types'
 import { useNavContext } from './context/navContext'
 
-const Card = ({
+const MiniCard = ({
   cardId,
-  cardText,
   cardIcon,
   cardIconColor,
   cardAction
-}: CardType) => {
-  const { navState, updateNavState } = useNavContext()
+}: IMiniCard) => {
+  const { updateNavState } = useNavContext()
 
   const handleClick = (action: Function) => {
     if (updateNavState) {
@@ -43,15 +42,12 @@ const Card = ({
       <Center>
         <SimpleGrid>
           <Center>
-            <Icon as={cardIcon} fontSize="xl" color={cardIconColor} />
+            <Icon as={cardIcon} fontSize="3xl" color={cardIconColor} />
           </Center>
-          <Text fontSize="2xl" fontWeight={600}>
-            {cardText}
-          </Text>
         </SimpleGrid>
       </Center>
     </Box>
   )
 }
 
-export default Card
+export default MiniCard
