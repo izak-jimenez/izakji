@@ -1,51 +1,43 @@
-import {
-  Box,
-  Container,
-  Center,
-  Text,
-  SimpleGrid,
-  Icon
-} from '@chakra-ui/react'
+import { Box, Center, Text, SimpleGrid, Icon } from '@chakra-ui/react'
 import { CardType } from '../lib/types'
-import { useNavContext } from './context/navContext'
 
-const Card = ({
-  cardId,
-  cardText,
-  cardIcon,
-  cardIconColor,
-  cardAction
-}: CardType) => {
-  const { navState, updateNavState } = useNavContext()
+const activeStyle = {
+  '.custom-icon:hover::before &': {
+    transition: 'all .3s ease-in-out',
+    transform: 'scale(1.1)',
+    boxShadow: '0 0 15px #ffee10',
+  },
+  '.custom-icon:hover &': {
+    color: '#ffee10',
+    boxShadow: '0 0 5px #ffee10',
+    textShadow: '0 0 5px #ffee10',
+  },
+}
 
-  const handleClick = (action: Function) => {
-    if (updateNavState) {
-      updateNavState(1)
-    }
-  }
-
+const Card = ({ cardId, cardText, cardIcon, cardIconColor, cardAction }: CardType) => {
   return (
     <Box
       key={cardId}
-      width="100%"
-      bg="#74B1EA"
-      p="5"
-      textAlign="center"
+      width='100%'
+      bg='#74B1EA'
+      p='5'
+      textAlign='center'
       borderRadius={8}
-      boxShadow="lg"
+      boxShadow='lg'
       _hover={{
         transition: 'all .3s ease-in-out',
         transform: 'scale(1.025)',
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
-      onClick={() => handleClick(cardAction)}
+      sx={activeStyle}
+      onClick={cardAction}
     >
       <Center>
         <SimpleGrid>
           <Center>
-            <Icon as={cardIcon} fontSize="xl" color={cardIconColor} />
+            <Icon sx={activeStyle} as={cardIcon} fontSize='xl' color={cardIconColor} />
           </Center>
-          <Text fontSize="2xl" fontWeight={600}>
+          <Text fontSize='2xl' fontWeight={600}>
             {cardText}
           </Text>
         </SimpleGrid>

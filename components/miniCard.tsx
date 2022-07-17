@@ -1,13 +1,24 @@
 import {
   Box,
-  Container,
   Center,
-  Text,
   SimpleGrid,
   Icon
 } from '@chakra-ui/react'
 import { IMiniCard } from '../lib/types'
-import { useNavContext } from './context/navContext'
+
+const activeStyle = {
+  '.custom-icon:hover::before &': {
+    transition: 'all .3s ease-in-out',
+    transform: 'scale(1.1)',
+    boxShadow: '0 0 15px #ffee10',
+  },
+  '.custom-icon:hover &': {
+    color: '#ffee10',
+    boxShadow: '0 0 5px #ffee10',
+    textShadow: '0 0 5px #ffee10',
+    cursor: 'pointer',
+  },
+}
 
 const MiniCard = ({
   cardId,
@@ -15,14 +26,6 @@ const MiniCard = ({
   cardIconColor,
   cardAction
 }: IMiniCard) => {
-  const { updateNavState } = useNavContext()
-
-  const handleClick = (action: Function) => {
-    if (updateNavState) {
-      updateNavState(1)
-    }
-  }
-
   return (
     <Box
       key={cardId}
@@ -37,12 +40,12 @@ const MiniCard = ({
         transform: 'scale(1.025)',
         cursor: 'pointer'
       }}
-      onClick={() => handleClick(cardAction)}
+      onClick={cardAction}
     >
       <Center>
         <SimpleGrid>
           <Center>
-            <Icon as={cardIcon} fontSize="3xl" color={cardIconColor} />
+            <Icon sx={activeStyle} as={cardIcon} fontSize="3xl" color={cardIconColor} />
           </Center>
         </SimpleGrid>
       </Center>
