@@ -1,9 +1,4 @@
-import {
-  Box,
-  Center,
-  SimpleGrid,
-  Icon
-} from '@chakra-ui/react'
+import { Box, Center, SimpleGrid, Icon } from '@chakra-ui/react'
 import { IMiniCard } from '../lib/types'
 
 const activeStyle = {
@@ -20,32 +15,27 @@ const activeStyle = {
   },
 }
 
-const MiniCard = ({
-  cardId,
-  cardIcon,
-  cardIconColor,
-  cardAction
-}: IMiniCard) => {
+const MiniCard = ({ cardId, cardIcon, cardIconColor, cardAction }: IMiniCard) => {
   return (
     <Box
       key={cardId}
-      width="100%"
-      bg="#74B1EA"
-      p="5"
-      textAlign="center"
+      width='100%'
+      bg='white'
+      p='5'
+      textAlign='center'
       borderRadius={8}
-      boxShadow="lg"
+      boxShadow='lg'
       _hover={{
         transition: 'all .3s ease-in-out',
         transform: 'scale(1.025)',
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
       onClick={cardAction}
     >
       <Center>
         <SimpleGrid>
           <Center>
-            <Icon sx={activeStyle} as={cardIcon} fontSize="3xl" color={cardIconColor} />
+            <Icon sx={activeStyle} as={cardIcon} fontSize='3xl' color={cardIconColor} />
           </Center>
         </SimpleGrid>
       </Center>

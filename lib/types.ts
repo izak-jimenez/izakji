@@ -1,23 +1,25 @@
-import React from 'react';
+import React from 'react'
 
 export interface CardType {
-  cardId: number,
-  cardText: string,
-  cardIcon: any | undefined,
-  cardIconColor: string,
+  cardId: number
+  cardText: string
+  cardIcon: any | undefined
+  cardIconColor: string
   cardAction: (...args: []) => void
 }
 
 export interface IMiniCard {
-  cardId: number,
-  cardIcon: any | undefined,
-  cardIconColor: string,
+  cardId: number
+  cardIcon: any | undefined
+  cardIconColor: string
   cardAction: (...args: []) => void
 }
 
 export interface SectionType {
-  children: React.ReactNode,
+  children: React.ReactNode
+  duration: number
   delay: number
+  visible: boolean
 }
 
 export interface INavContextContext {
@@ -27,8 +29,12 @@ export interface INavContextContext {
   updateActiveCard?: (newState: number) => void
 }
 
+export type SocialsPropTypes = {
+  size: number
+}
+
 export interface NavContextProviderType {
-  children: React.ReactNode,
+  children: React.ReactNode
   state: number
 }
 

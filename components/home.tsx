@@ -19,13 +19,15 @@ const cards = [
 const HomeComponent = () => {
   const { activeCard } = useNavContext()
   return (
-    <Section delay={0.2}>
-      <Center>
-        <Box>
-          <Text textAlign={'justify'}>{activeCard < 99 ? cards[activeCard].text : ''}</Text>
-        </Box>
-      </Center>
-    </Section>
+    <Center>
+      <Box>
+        <Section duration={0.4} delay={0.2} visible={activeCard < 99}>
+          <Text key={cards[activeCard]?.id} textAlign={'justify'}>
+            {activeCard < 99 ? cards[activeCard].text : ''}
+          </Text>
+        </Section>
+      </Box>
+    </Center>
   )
 }
 

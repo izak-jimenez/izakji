@@ -1,8 +1,9 @@
 import { Box, Container, Center, SimpleGrid, Text } from '@chakra-ui/react'
-import { FaUser, FaGamepad, FaNewspaper, FaLaptopCode } from 'react-icons/fa'
+import { FaUser, FaGamepad, FaNewspaper, FaLaptopCode, FaUserAlt } from 'react-icons/fa'
 import { Card, MiniCard, Section } from '../../components'
 import { ActiveCardValues } from '../../lib/types'
 import { useNavContext } from '../context/navContext'
+import Socials from './socials'
 
 const AppBar = () => {
   const { navState, activeCard, updateActiveCard, updateNavState } = useNavContext()
@@ -23,8 +24,8 @@ const AppBar = () => {
     {
       id: 0,
       text: 'About Me',
-      icon: FaUser,
-      iconColor: '#D7C635',
+      icon: FaUserAlt,
+      iconColor: '#FFC300',
       action: () => cardActionHandler(ActiveCardValues.ABOUT_ME),
     },
     {
@@ -49,6 +50,20 @@ const AppBar = () => {
       action: () => cardActionHandler(ActiveCardValues.GAMING),
     },
   ]
+
+  const header = () => (
+    <Center>
+      <SimpleGrid columns={[1, 1, 1]} spacing={4}>
+        <Text textAlign='center' fontSize='3xl' fontWeight={600}>
+          [ isaac jimenez ]
+        </Text>
+        <Text textAlign='center' fontSize='xl' fontWeight={600}>
+          software engineer | cloud engineer
+        </Text>
+        <Socials size={24} />
+      </SimpleGrid>
+    </Center>
+  )
 
   const renderWebAppBar = () => {
     return (
@@ -120,18 +135,9 @@ const AppBar = () => {
   }
 
   return (
-    <Section delay={0.2}>
+    <Section duration={0.8} delay={0.2} visible={navState < 2}>
       <Box paddingTop={[4, 6, 12, 24]}>
-        <Center>
-          <SimpleGrid columns={[1, 1, 1]} spacing={4}>
-            <Text textAlign='center' fontSize='3xl' fontWeight={600}>
-              [ isaac jimenez ]
-            </Text>
-            <Text textAlign='center' fontSize='xl' fontWeight={600}>
-              software engineer | cloud engineer
-            </Text>
-          </SimpleGrid>
-        </Center>
+        {header()}
         <Container paddingTop={[4, 6, 12, 24]}>{navRenderer(navState)}</Container>
       </Box>
     </Section>

@@ -19,7 +19,7 @@ const Card = ({ cardId, cardText, cardIcon, cardIconColor, cardAction }: CardTyp
     <Box
       key={cardId}
       width='100%'
-      bg='#74B1EA'
+      bg='white'
       p='5'
       textAlign='center'
       borderRadius={8}
@@ -37,7 +37,7 @@ const Card = ({ cardId, cardText, cardIcon, cardIconColor, cardAction }: CardTyp
           <Center>
             <Icon sx={activeStyle} as={cardIcon} fontSize='xl' color={cardIconColor} />
           </Center>
-          <Text fontSize='2xl' fontWeight={600}>
+          <Text fontSize='2xl' fontWeight={600} color='black'>
             {cardText}
           </Text>
         </SimpleGrid>
