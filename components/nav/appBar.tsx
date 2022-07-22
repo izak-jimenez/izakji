@@ -1,21 +1,59 @@
 import { Box, Container, Center, SimpleGrid, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { FaUser, FaGamepad, FaNewspaper, FaLaptopCode, FaUserAlt } from 'react-icons/fa'
 import { Card, MiniCard, Section } from '../../components'
-import { ActiveCardValues } from '../../lib/types'
+import { ROUTES } from '../../lib/config/constants'
+import { ActiveCardValues, Sections } from '../../lib/types'
+import { AnimatedCard } from '../animated'
 import { useNavContext } from '../context/navContext'
 import Socials from './socials'
 
 const AppBar = () => {
   const { navState, activeCard, updateActiveCard, updateNavState } = useNavContext()
+  const router = useRouter()
 
-  const cardActionHandler = (activeCardValue: ActiveCardValues) => {
+  useEffect(() => {
+    if (updateNavState) {
+      const value = localStorage.getItem('navState')
+      if (value) {
+        updateNavState(parseInt(value))
+      }
+    }
+  }, [])
+
+  const routeProcessor = (activeCardValue: Sections) => {
+    switch (activeCardValue) {
+      case 'aboutMe':
+        router.push(ROUTES.aboutMe)
+        return
+      /* case 'work':
+        router.push(ROUTES.work)
+        return
+      case 'blog':
+        router.push(ROUTES.blog)
+        return
+      case 'gaming':
+        router.push(ROUTES.gaming)
+        return */
+      default:
+        router.push(ROUTES.home)
+        return
+    }
+  }
+
+  const cardActionHandler = (activeCardValue: Sections) => {
     if (updateNavState && updateActiveCard) {
-      if (navState === 1 && activeCard === activeCardValue) {
+      if (navState === 1 && (activeCard === activeCardValue || activeCard === 'none')) {
         updateNavState(0)
-        updateActiveCard(99)
+        localStorage.setItem('navState', '0')
+        updateActiveCard(activeCardValue)
+        routeProcessor('none')
       } else {
         updateNavState(1)
+        localStorage.setItem('navState', '1')
         updateActiveCard(activeCardValue)
+        routeProcessor(activeCardValue)
       }
     }
   }
@@ -26,28 +64,28 @@ const AppBar = () => {
       text: 'About Me',
       icon: FaUserAlt,
       iconColor: '#FFC300',
-      action: () => cardActionHandler(ActiveCardValues.ABOUT_ME),
+      action: () => cardActionHandler('aboutMe'),
     },
     {
       id: 1,
       text: 'Work',
       icon: FaLaptopCode,
       iconColor: '#B780E7',
-      action: () => cardActionHandler(ActiveCardValues.WORK),
+      action: () => cardActionHandler('work'),
     },
     {
       id: 2,
       text: 'Blog',
       icon: FaNewspaper,
       iconColor: '#E34F23',
-      action: () => cardActionHandler(ActiveCardValues.BLOG),
+      action: () => cardActionHandler('blog'),
     },
     {
       id: 3,
       text: 'Gaming',
       icon: FaGamepad,
       iconColor: '#76CF31',
-      action: () => cardActionHandler(ActiveCardValues.GAMING),
+      action: () => cardActionHandler('gaming'),
     },
   ]
 
@@ -70,13 +108,14 @@ const AppBar = () => {
       <SimpleGrid columns={[1, 1, 2]} spacing={4}>
         {cards.map((card, index) => {
           return (
-            <Card
+            <AnimatedCard
               key={index}
               cardId={card.id}
               cardText={card.text}
               cardIcon={card.icon}
               cardIconColor={card.iconColor}
               cardAction={card.action}
+              isMini={false}
             />
           )
         })}
@@ -89,12 +128,13 @@ const AppBar = () => {
       <SimpleGrid columns={[4, 4, 4]} spacing={4}>
         {cards.map((card, index) => {
           return (
-            <MiniCard
+            <AnimatedCard
               key={index}
               cardId={card.id}
               cardIcon={card.icon}
               cardIconColor={card.iconColor}
               cardAction={card.action}
+              isMini={true}
             />
           )
         })}
@@ -107,13 +147,14 @@ const AppBar = () => {
       <SimpleGrid columns={[1, 1, 2]} spacing={4}>
         {cards.map((card, index) => {
           return (
-            <Card
+            <AnimatedCard
               key={index}
               cardId={card.id}
               cardText={card.text}
               cardIcon={card.icon}
               cardIconColor={card.iconColor}
               cardAction={card.action}
+              isMini={false}
             />
           )
         })}
@@ -135,7 +176,7 @@ const AppBar = () => {
   }
 
   return (
-    <Section duration={0.8} delay={0.2} visible={navState < 2}>
+    <Section duration={0.8} delay={0.2}>
       <Box paddingTop={[4, 6, 12, 24]}>
         {header()}
         <Container paddingTop={[4, 6, 12, 24]}>{navRenderer(navState)}</Container>

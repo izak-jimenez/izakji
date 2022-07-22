@@ -15,6 +15,8 @@ const activeStyle = {
   },
 }
 
+
+
 const MiniCard = ({ cardId, cardIcon, cardIconColor, cardAction }: IMiniCard) => {
   return (
     <Box

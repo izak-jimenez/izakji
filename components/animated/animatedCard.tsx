@@ -1,13 +1,20 @@
 import { Box, Center, Text, SimpleGrid, Icon, BoxProps } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { CardType } from '../lib/types'
+import { AnimatedCardType } from '../../lib/types'
 
 /* https://github.com/chakra-ui/chakra-ui/issues/1814 */
-const AnimatedCard = motion<Omit<BoxProps, 'transition'>>(Box)
+const BoxWithMotion = motion<Omit<BoxProps, 'transition'>>(Box)
 
-const Card = ({ cardId, cardText, cardIcon, cardIconColor, cardAction }: CardType) => {
+const AnimatedCard = ({
+  cardId,
+  cardText,
+  cardIcon,
+  cardIconColor,
+  cardAction,
+  isMini,
+}: AnimatedCardType) => {
   return (
-    <AnimatedCard
+    <BoxWithMotion
       key={cardId}
       width='100%'
       bg='white'
@@ -28,15 +35,17 @@ const Card = ({ cardId, cardText, cardIcon, cardIconColor, cardAction }: CardTyp
       <Center>
         <SimpleGrid>
           <Center>
-            <Icon as={cardIcon} fontSize='xl' color={cardIconColor} />
+            <Icon as={cardIcon} fontSize={isMini ? '3xl' : 'xl'} color={cardIconColor} />
           </Center>
-          <Text fontSize='2xl' fontWeight={600} color='black'>
-            {cardText}
-          </Text>
+          {!isMini ? (
+            <Text fontSize='2xl' fontWeight={600} color='black'>
+              {cardText}
+            </Text>
+          ) : null}
         </SimpleGrid>
       </Center>
-    </AnimatedCard>
+    </BoxWithMotion>
   )
 }
 
-export default Card
+export default AnimatedCard
