@@ -27,7 +27,7 @@ const AppBar = () => {
       case 'aboutMe':
         router.push(ROUTES.aboutMe)
         return
-      /* case 'work':
+      case 'work':
         router.push(ROUTES.work)
         return
       case 'blog':
@@ -35,7 +35,7 @@ const AppBar = () => {
         return
       case 'gaming':
         router.push(ROUTES.gaming)
-        return */
+        return
       default:
         router.push(ROUTES.home)
         return
